@@ -14,6 +14,7 @@ If the two are different, set them to the same value.
 ##IF YOU DO NOT WANT TO BUILD THE SOURCE YOURSELF
 Use this EXE I have compiled below. This was compiled .NET 4.5.2 on 64bit system, so I do not know it would work on other configurations.
 https://github.com/HubKing/LinkBrightness/blob/master/LinkBrightness/Compiled/LinkBrightness.exe
+Press the [Raw] button to download the EXE.
 
-##TO BUILD FROM THE SOURCE CODE,
+##TO BUILD FROM THE SOURCE CODE
 use any IDE. I used SharpDevelop, because it is lightweighted. I set the .NET level to 4.5.2, but it should also work on .NET 2.

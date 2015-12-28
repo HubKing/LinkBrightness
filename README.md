@@ -18,3 +18,6 @@ Press the [Raw] button to download the EXE.
 
 ##TO BUILD FROM THE SOURCE CODE
 use any IDE. I used SharpDevelop, because it is lightweighted. I set the .NET level to 4.5.2, but it should also work on .NET 2.
+
+##Licence
+For the EXE and the source code, MIT Licence. Simply put, it is free for home and work.

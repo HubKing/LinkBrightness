@@ -60,7 +60,7 @@ namespace LinkBrightness
 					Console.WriteLine("==================================");
 					Console.WriteLine("Current power source: AC");
 					Console.WriteLine("AC brightness: " + current.AC);
-					Console.WriteLine("Changing DC brightenss to " + current.AC + ".");
+					Console.WriteLine("Changing DC brightness to " + current.AC + ".");
 					SetBrightness(false, current.AC);
 				}
 			} else {

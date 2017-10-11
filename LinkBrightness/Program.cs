@@ -68,7 +68,7 @@ namespace LinkBrightness
 					Console.WriteLine("==================================");
 					Console.WriteLine("Current power source: DC");
 					Console.WriteLine("DC brightness: " + current.DC);
-					Console.WriteLine("Changing AC brightenss to " + current.DC + ".");
+					Console.WriteLine("Changing AC brightness to " + current.DC + ".");
 					SetBrightness(true, current.DC);
 				}				
 			}
@@ -82,11 +82,16 @@ namespace LinkBrightness
 		
 		BrightnessInfo GetBrightness()
 		{
+			uint result;
 			IntPtr pGuid = NULL;
-			PowerGetActiveScheme(NULL, ref pGuid);
+
+			result = PowerGetActiveScheme(NULL, ref pGuid);
+			if (result != 0) {
+				Console.WriteLine("Could not get the active power scheme.");
+				return null;
+			}
 			Guid activeScheme = (Guid)Marshal.PtrToStructure(pGuid, typeof(Guid));
 
-			uint result;
 			IntPtr brightness = NULL;
 			int type = 0;
 			uint size = 4;
@@ -111,15 +116,20 @@ namespace LinkBrightness
 		
 		void SetBrightness(bool setAC, int brightness)
 		{
+			uint result;
+
 			if (brightness < 0 || brightness > 100) {
 				throw new ArgumentException("Brightness should be in between 0 and 100.");
 			}
 			
 			IntPtr pGuid = NULL;
-			PowerGetActiveScheme(NULL, ref pGuid);
+			result = PowerGetActiveScheme(NULL, ref pGuid);
+			if (result != 0) {
+				Console.WriteLine("Could not get the active power scheme.");
+				return;
+			}
 			Guid activeScheme = (Guid)Marshal.PtrToStructure(pGuid, typeof(Guid));
 
-			uint result;
 			if (setAC) {
 				result = PowerWriteACValueIndex(NULL, activeScheme, VideoSubgroup, BrightnessKey, brightness);
 			} else {
@@ -129,6 +139,15 @@ namespace LinkBrightness
 			if (result != 0) {
 				Console.WriteLine("Could not set the brightness of the " + (setAC ? "AC mode." : "DC mode."));
 			}		
+
+			/* It is necessary to set the active scheme after changing the
+			 * brightness, otherwise the system is not fully aware of the
+			 * change and may use a value different from what was set.
+			 */
+			result = PowerSetActiveScheme(NULL, activeScheme);
+			if (result != 0) {
+				Console.WriteLine("Could not set the active power scheme.");
+			}
 		}
 		
 		#region Windows API
@@ -148,6 +167,10 @@ namespace LinkBrightness
 		[DllImport("PowrProf.dll")]
 		public static extern uint PowerGetActiveScheme(IntPtr UserRootPowerKey, ref IntPtr ActivePolicyGuid);
  
+		[DllImport("PowrProf.dll")]
+		public static extern uint PowerSetActiveScheme(IntPtr UserRootPowerKey,
+			[MarshalAs(UnmanagedType.LPStruct)] Guid ActivePolicyGuid);
+
 		[DllImport("PowrProf.dll", CharSet = CharSet.Unicode)]
 		static extern UInt32 PowerWriteDCValueIndex(IntPtr RootPowerKey,
 			[MarshalAs(UnmanagedType.LPStruct)] Guid SchemeGuid,

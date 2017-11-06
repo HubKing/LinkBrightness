@@ -1,0 +1,2 @@
+[*.{config,cs}]
+indent_style = tab

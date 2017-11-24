@@ -1,0 +1,3 @@
+artifacts:
+  - path: 'LinkBrightness\bin\Debug\LinkBrightness.exe'
+  - path: 'LinkBrightness\bin\Debug\LinkBrightness.pdb'

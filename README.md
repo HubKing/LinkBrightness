@@ -65,14 +65,12 @@ Other
 -----
 
 ### IF YOU DO NOT WANT TO BUILD THE SOURCE YOURSELF
-Use this EXE I have compiled below. This was compiled .NET 4.5.2 on 64bit
-system, so I do not know it would work on other configurations.
-https://github.com/HubKing/LinkBrightness/blob/master/LinkBrightness/Compiled/LinkBrightness.exe <br />
-Press the [Raw] button to download the EXE.
+You can download the most recent successful build of master branch from
+https://ci.appveyor.com/api/projects/HubKing/LinkBrightness/artifacts/LinkBrightness/bin/Debug/LinkBrightness.exe?branch=master
 
 ### TO BUILD FROM THE SOURCE CODE
-use any IDE. I used SharpDevelop, because it is lightweighted. I set the .NET
-level to 4.5.2, but it should also work on .NET 2.
+Use any IDE. I used SharpDevelop, because it is lightweighted. The .NET level
+is set to 4.5, but it may also work on .NET 2.
 
 ### Licence
 For the EXE and the source code, MIT Licence. Simply put, it is free for home
